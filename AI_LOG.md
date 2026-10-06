@@ -92,3 +92,15 @@ An isolated retry returned the expected API response, and a second complete
 public run passed all 11 cases with zero failures and cleaned up its temporary
 booking. I recorded both the transient failure and successful regression in
 `TEST_RESULTS.md`.
+
+## Entry 5 — Local D1 state after deployment configuration
+
+**Finding:** After replacing the placeholder database ID with the real remote
+D1 ID, the next local Wrangler run used a new local D1 state namespace. The
+first local requests returned `500` because that local state did not yet have
+the `equipment` and `bookings` tables.
+
+**Action and verification:** I reran `npm run db:migrate`, which applied the
+existing migration and seed data to the new local state. I then reran
+`npm run test:api`; all 11 local cases passed with zero failures. The remote D1
+database and deployed Worker were not changed by this local migration.

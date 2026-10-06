@@ -95,3 +95,9 @@ Cloudflare platform error codes `1042` and `1104`. An isolated retry returned
 the correct API `400` response, showing that the earlier response was
 transient. The complete public suite was then rerun and reported **11 passed,
 0 failed**. Its temporary remote booking was deleted successfully.
+
+After the real remote D1 ID was added to `wrangler.jsonc`, Wrangler selected a
+new local D1 state namespace. Local requests initially returned `500` because
+that new local state had no tables. Running `npm run db:migrate` applied the
+same migration locally, after which `npm run test:api` again reported **11
+passed, 0 failed**. This did not affect the already migrated remote database.
