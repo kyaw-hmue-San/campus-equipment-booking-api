@@ -3,10 +3,16 @@
 set -u
 
 BASE_URL="${BASE_URL:-http://localhost:8787/api}"
+# BASE_URL="${BASE_URL:-https://campus-equipment-booking-api.khs-project.workers.dev/api}"
 BODY_FILE="$(mktemp)"
 CREATED_ID=""
 PASS_COUNT=0
 FAIL_COUNT=0
+
+printf '\n============================================================\n'
+printf '  CLOUDFLARE DEPLOYED WORKER — API TEST RESULTS\n'
+printf '============================================================\n'
+printf 'Base URL: %s\n\n' "$BASE_URL"
 
 cleanup() {
   if [ -n "$CREATED_ID" ]; then

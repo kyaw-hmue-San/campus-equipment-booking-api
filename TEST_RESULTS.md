@@ -9,7 +9,10 @@
 **Environment:** Cloudflare Workers/D1 and local Wrangler 4.147.0
 
 **Screenshot evidence:**
+
 [Automated API test summary](evidence_image/test-evidence-api-summary.png)
+
+[Automated API Cloudflare Worker](evidence_image/test-evidence-api-cloudflare-worker.png)
 
 The migration completed successfully before these tests. The API was started
 with `npm run dev`, and requests were sent with `curl`.
