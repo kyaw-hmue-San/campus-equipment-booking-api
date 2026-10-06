@@ -7,7 +7,8 @@
     "dev": "wrangler dev",
     "db:migrate": "wrangler d1 migrations apply campus-equipment-booking-db --local",
     "cf-typegen": "wrangler types",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:api": "bash scripts/test-api.sh"
   },
   "dependencies": {
     "hono": "^4.13.13"

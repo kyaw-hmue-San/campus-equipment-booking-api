@@ -4,6 +4,9 @@
 **Base API URL:** `http://localhost:8787/api`  
 **Environment:** Local Cloudflare Worker and local D1 through Wrangler 4.147.0
 
+**Screenshot evidence:**
+[Automated API test summary](evidence_image/test-evidence-api-summary.png)
+
 The migration completed successfully before these tests. The API was started
 with `npm run dev`, and requests were sent with `curl`.
 
@@ -66,3 +69,14 @@ HTTP/1.1 204 No Content
 - Wrangler's request log confirmed every status recorded in the table.
 - SQL inspection confirms that every user-controlled value is passed through
   D1 `.bind(...)`; request values are not concatenated into SQL.
+
+## Post-Quality-Gate regression
+
+After receiving the lecturer's cURL guide and Quality Gate, the complete guide
+was rerun. Every expected status matched. An additional date-only input test
+returned `400`, confirming the tightened date-time validation. Full review
+details are recorded in `QUALITY_GATE_REVIEW.md`.
+
+The repeatable `npm run test:api` command was then run against the default Base
+URL. It reported **11 passed and 0 failed**, including cleanup verification
+that its temporary booking returned `404` after deletion.

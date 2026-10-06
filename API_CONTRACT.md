@@ -39,6 +39,9 @@ The booking fields are:
 `POST` requires every field. `PATCH` accepts one or more fields and validates the
 complete result after merging the changes with the existing booking.
 
+`startAt` and `endAt` must be ISO date-time strings with a timezone, such as the
+UTC `Z` values shown above. They are normalized to UTC before storage.
+
 Two bookings conflict when they use the same equipment and their time ranges
 overlap. A booking ending exactly when another starts is allowed.
 

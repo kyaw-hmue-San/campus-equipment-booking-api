@@ -1,5 +1,19 @@
 # AI Log
 
+## Source provenance
+
+`LAB_COPILOT_CONTEXT.md` and the related templates were preparation materials I
+created before the exam with AI assistance. They are not lecturer-provided
+instructions and do not contain the exam solution. I used them only as a
+general workflow reminder for reading requirements, keeping the implementation
+simple, validating input, binding SQL parameters, testing, and documenting AI
+use.
+
+The lecturer-provided sources are `exam_brief_en.md`, `rubric_en.md`,
+`curl_test_guide.md`, and `quality_gate.md`. I treated those files as the source
+of truth. Where they were more specific than my preparation materials, the
+lecturer's requirements took priority.
+
 ## Entry 1 — Requirements and initial implementation
 
 **Prompt:** Read the lab scenario and provided project first. Follow
@@ -13,10 +27,50 @@ a minimal TypeScript/Hono/Cloudflare Workers/D1 implementation in a separate
 deployable folder. Added schema, two equipment seed records, booking CRUD,
 request validation, overlap checks, JSON errors, and parameter-bound SQL.
 
-**Student verification:** Installed the minimal dependencies, generated Worker
+**My verification:** I installed the minimal dependencies, generated Worker
 types, applied the local D1 migration, and ran `npm run typecheck` successfully.
-Started the API with Wrangler and verified 14 HTTP cases covering equipment,
+I started the API with Wrangler and verified 14 HTTP cases covering equipment,
 create/read/list/update/delete, validation, missing resources, and conflicts.
 The observed statuses and representative responses are recorded in
 `TEST_RESULTS.md`. The Quality Gate review remains pending until the lecturer
 provides the required checklist.
+
+## Entry 2 — Lecturer Quality Gate review
+
+**Prompt/context:** Read the lecturer-provided `curl_test_guide.md` and
+`quality_gate.md`, compare them with the current API, and perform the required
+Quality Gate without inventing features.
+
+**AI assistance used:** Compared the committed first version with the eight
+Quality Gate areas. Identified that date parsing accepted incomplete date-only
+values, the submission lacked a complete reproducible cURL sequence, and the
+ownership documentation did not yet explain the key implementation decisions.
+
+**Changes accepted:** Tightened date-time validation while keeping valid ISO
+timestamps compatible with the contract; added `CURL_TESTS.md`; and added
+`EXPLANATION_NOTES.md` covering the schema, statuses, overlap formula,
+parameter binding, optional features, and limitations.
+
+**Verification:** Ran `npm run typecheck` successfully. Reran the lecturer's
+complete cURL sequence and observed the expected statuses for list, create,
+read, update, invalid time order, conflict, missing resource, and delete. Also
+verified that a date-only value now returns `400` while a valid ISO date-time
+still creates a booking. The results are recorded in
+`QUALITY_GATE_REVIEW.md`.
+
+## Entry 3 — Repeatable API test command
+
+**Prompt/context:** I wanted the regression tests to be repeatable and
+consistent, without introducing errors when manually copying commands or IDs.
+I asked whether a Postman collection or an automated cURL workflow would be the
+better testing approach.
+
+**AI assistance used:** Added a small Bash script that uses cURL to run the
+required success and error cases, capture the generated booking ID, print
+PASS/FAIL results, and remove its own temporary booking.
+
+**Decision and verification:** I kept cURL instead of adding Postman or a
+browser client because the lecturer accepts cURL and does not assess frontend
+work. I ran `npm run test:api` against the local API and all 11 checks passed
+with zero failures. The script uses the same public API contract, deleted its
+own temporary booking, and adds no production endpoint or CORS configuration.
