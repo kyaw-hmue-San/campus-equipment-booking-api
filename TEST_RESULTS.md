@@ -1,8 +1,12 @@
 # Test Results
 
 **Date tested:** 6 October 2026  
-**Base API URL:** `http://localhost:8787/api`  
-**Environment:** Local Cloudflare Worker and local D1 through Wrangler 4.147.0
+**Submitted Base API URL:**
+`https://campus-equipment-booking-api.khs-project.workers.dev/api`
+
+**Initial local Base API URL:** `http://localhost:8787/api`
+
+**Environment:** Cloudflare Workers/D1 and local Wrangler 4.147.0
 
 **Screenshot evidence:**
 [Automated API test summary](evidence_image/test-evidence-api-summary.png)
@@ -80,3 +84,14 @@ details are recorded in `QUALITY_GATE_REVIEW.md`.
 The repeatable `npm run test:api` command was then run against the default Base
 URL. It reported **11 passed and 0 failed**, including cleanup verification
 that its temporary booking returned `404` after deletion.
+
+## Deployed Cloudflare verification
+
+The remote D1 migration completed successfully and the Worker deployed as
+Cloudflare version `c5a40c68-94d4-4bc3-b6db-2c34ff3f0b3c`.
+
+The first rapid public test run passed 9 cases, while two requests received
+Cloudflare platform error codes `1042` and `1104`. An isolated retry returned
+the correct API `400` response, showing that the earlier response was
+transient. The complete public suite was then rerun and reported **11 passed,
+0 failed**. Its temporary remote booking was deleted successfully.

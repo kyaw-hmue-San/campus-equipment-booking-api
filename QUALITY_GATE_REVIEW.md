@@ -5,6 +5,65 @@
 **Review sources:** Lecturer's exam brief, rubric, `quality_gate.md`, and
 `curl_test_guide.md`
 
+## Lecturer checklist
+
+### 1. Purpose
+
+- [x] My API solves the stated equipment-booking problem.
+- [x] My routes, request bodies, responses, and status codes match the common API contract.
+- [x] I have met the required deliverables and submission instructions.
+- [x] I have not added unrelated features that reduce the time available for required work.
+
+### 2. Reliability
+
+- [x] My equipment data and booking data are saved and retrieved consistently.
+- [x] Creating or updating a booking cannot create an overlap for the same equipment.
+- [x] `equipmentId` is checked against existing equipment.
+- [x] The API handles invalid requests without crashing.
+
+### 3. Course Context
+
+- [x] My work follows the instructor's task, API contract, and permitted technology stack.
+- [x] I understand which parts I implemented and which parts used AI assistance.
+- [x] I used only permitted sources and recorded significant AI assistance in `AI_LOG.md`.
+- [x] I can identify the important files, routes, schema, and run commands.
+
+### 4. Reasoning
+
+- [x] I can explain why I selected `400`, `404`, and `409`.
+- [x] I can explain the overlap check for create and update.
+- [x] I can distinguish required behaviour from optional choices.
+- [x] I can explain the implementation's limitations and assumptions.
+
+### 5. Execution Value
+
+- [x] The API runs by following `README.md`.
+- [x] The equipment endpoint and all required booking CRUD endpoints work.
+- [x] I tested the API with cURL and recorded the results.
+- [x] I focused effort on the required API, validation, testing, and documentation.
+
+### 6. Accuracy
+
+- [x] Booking fields, dates, IDs, and responses contain the correct values.
+- [x] I validate that `startAt` is before `endAt`.
+- [x] Every error response uses the required `{ "error": "..." }` JSON format.
+- [x] I use SQL/D1 parameter binding and do not concatenate request data into SQL.
+
+### 7. Delivery Quality
+
+- [x] My source code is runnable and `README.md` includes clear run instructions.
+- [x] My API contract and brief schema/ERD are included.
+- [x] I omitted CORS because I did not choose a browser-based client.
+- [x] I included evidence for at least five successful and error test cases.
+- [x] My files are clearly named and complete enough for marking.
+
+### 8. You Own It
+
+- [x] I can explain every important route, validation rule, database query, and test result.
+- [x] My `AI_LOG.md` truthfully records important prompts, what I used, and how I checked it.
+- [x] I can explain what I changed after the Quality Gate and why.
+- [x] I am ready to answer follow-up questions about my design and implementation.
+
 ## Improvements
 
 | Quality Gate area | Finding | Action taken | Evidence |
@@ -28,9 +87,10 @@
 
 ## Regression evidence
 
-The post-change regression used a second local Wrangler instance on port `8788`
-because my default server was already running on port `8787`. This
-does not change the submitted Base API URL of `http://localhost:8787/api`.
+The post-change local regression used a second Wrangler instance on port `8788`
+because my default server was already running on port `8787`. After the
+lecturer requested Cloudflare submission, the same suite was also run against
+the deployed Base URL.
 
 | Test | Expected | Actual |
 | --- | --- | --- |
@@ -47,6 +107,10 @@ does not change the submitted Base API URL of `http://localhost:8787/api`.
 
 The later automated cURL runner also reported **11 passed and 0 failed** and
 removed the temporary booking it created.
+
+The final deployed regression at
+`https://campus-equipment-booking-api.khs-project.workers.dev/api` also
+reported **11 passed and 0 failed** using the remote D1 database.
 
 ## Submission decision
 

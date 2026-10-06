@@ -50,10 +50,11 @@ normal meaning; the complete merged booking is validated before saving.
 
 ## Limitations and assumptions
 
-- The submitted Base URL is local because public deployment is not required.
-- Public deployment is outside the assessment requirements. The D1 ID in
-  `wrangler.jsonc` is intentionally a local placeholder; it would only need to
-  be replaced if deployment were requested later.
+- The initial brief allowed local testing, but the lecturer later requested a
+  Cloudflare submission. The API was therefore deployed to Workers and the
+  configuration now contains the real remote D1 database ID.
+- The local and deployed environments use separate D1 data. Migrations must be
+  applied with `--local` for local development and `--remote` for production.
 - Conflict checking is performed by the API before each write. The lab API is
   designed for the required command-line workflow, not high-concurrency
   production scheduling.

@@ -15,7 +15,10 @@ npm run db:migrate
 npm run dev
 ```
 
-The local Base API URL is `http://localhost:8787/api`.
+The Base API URLs are:
+
+- Deployed submission: `https://campus-equipment-booking-api.khs-project.workers.dev/api`
+- Local development: `http://localhost:8787/api`
 
 The migration creates the schema and seeds these equipment records:
 
@@ -47,9 +50,19 @@ short ownership explanations are in [EXPLANATION_NOTES.md](EXPLANATION_NOTES.md)
 The required improvement record is in
 [QUALITY_GATE_REVIEW.md](QUALITY_GATE_REVIEW.md).
 
-## Local assessment environment
+## Cloudflare deployment
 
-Public deployment is not required for this assessment. The D1 `database_id` in
-`wrangler.jsonc` is an intentional placeholder used by the local Wrangler/D1
-environment. If deployment is requested later, a real Cloudflare D1 database
-must first be created and its database ID placed in the configuration.
+The API is deployed to Cloudflare Workers and bound to the production D1
+database `campus-equipment-booking-db`. After logging into Wrangler, future
+schema migrations and deployments can be applied with:
+
+```bash
+npm run db:migrate:remote
+npm run deploy
+```
+
+After deploying, verify the public API with:
+
+```bash
+BASE_URL="https://campus-equipment-booking-api.khs-project.workers.dev/api" npm run test:api
+```

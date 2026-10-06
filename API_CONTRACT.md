@@ -1,6 +1,9 @@
 # API Contract
 
-Base URL for local testing: `http://localhost:8787/api`
+Deployed Base URL:
+`https://campus-equipment-booking-api.khs-project.workers.dev/api`
+
+Local development Base URL: `http://localhost:8787/api`
 
 All request and response bodies use JSON. Every error has this shape:
 

@@ -6,6 +6,12 @@ Start the API with `npm run dev`, then run these commands in a second terminal.
 BASE_URL="http://localhost:8787/api"
 ```
 
+To test the deployed Worker instead, use:
+
+```bash
+BASE_URL="https://campus-equipment-booking-api.khs-project.workers.dev/api"
+```
+
 ## Required success cases
 
 List equipment — expect `200`:

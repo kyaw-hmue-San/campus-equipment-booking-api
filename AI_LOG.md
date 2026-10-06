@@ -74,3 +74,21 @@ browser client because the lecturer accepts cURL and does not assess frontend
 work. I ran `npm run test:api` against the local API and all 11 checks passed
 with zero failures. The script uses the same public API contract, deleted its
 own temporary booking, and adds no production endpoint or CORS configuration.
+
+## Entry 4 — Cloudflare deployment
+
+**Prompt/context:** The lecturer later confirmed that the API must be submitted
+on Cloudflare, so I asked for the existing tested project to be deployed.
+
+**AI assistance used:** Verified Wrangler authentication, created the remote
+D1 database in the APAC region, replaced the local placeholder with the real
+database ID, applied the migration remotely, deployed the Worker, and tested
+the public URL.
+
+**My verification:** The remote migration succeeded and the deployment returned
+the public Workers URL. The first rapid test run passed 9 cases but two requests
+received Cloudflare platform error codes. I did not treat that run as a pass.
+An isolated retry returned the expected API response, and a second complete
+public run passed all 11 cases with zero failures and cleaned up its temporary
+booking. I recorded both the transient failure and successful regression in
+`TEST_RESULTS.md`.

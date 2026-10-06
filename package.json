@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "db:migrate": "wrangler d1 migrations apply campus-equipment-booking-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply campus-equipment-booking-db --remote",
+    "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types",
     "typecheck": "tsc --noEmit",
     "test:api": "bash scripts/test-api.sh"
